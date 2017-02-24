@@ -4,4 +4,4 @@
 
 This icon is for demo/internal use only and should not appear in official context – unless we pay him for the great work :)
 
-![polly](polly.gif)
+<img src="polly.gif" style="max-height: 380px;"/>
