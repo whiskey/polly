@@ -7,19 +7,69 @@
 //
 
 import UIKit
+import AVFoundation
+import AWSPolly
+
 
 class ViewController: UIViewController {
-
+    
+    @IBOutlet weak var greeterLabel: UILabel! {
+        didSet {
+            greeterLabel.text = NSLocalizedString("Your name please", comment: "")
+        }
+    }
+    @IBOutlet weak var nameInput: UITextField!
+    
+    private lazy var audioPlayer = AVPlayer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        nameInput.delegate = self
+        
+        say(text: greeterLabel.text!)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    fileprivate func say(text: String, voice: AWSPollyVoiceId = .joanna, completion: (() -> Void)? = nil) {
+        let input = AWSPollySynthesizeSpeechURLBuilderRequest()
+        input.text = text
+        input.outputFormat = .mp3
+        // US default
+        input.voiceId = voice
+        
+        let builder = AWSPollySynthesizeSpeechURLBuilder.default().getPreSignedURL(input)
+        builder.continueOnSuccessWith { [weak self] (awsTask) -> Any? in
+            guard let url = awsTask.result as? URL else {
+                return nil
+            }
+            
+            self?.audioPlayer.replaceCurrentItem(with: AVPlayerItem(url: url))
+            self?.audioPlayer.play()
+            
+            return nil
+        }
     }
-
-
 }
 
+extension ViewController: UITextFieldDelegate {
+    // MARK: - UITextFieldDelegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        if let name = nameInput.text {
+            let text = "Hello \(name)! How are you?"
+            
+            let alert = UIAlertController(title: NSLocalizedString("Welcome!", comment: ""), message: text, preferredStyle: .alert)
+            let ok = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .default, handler: { (action) in
+                self.dismiss(animated: true, completion: nil)
+            })
+            alert.addAction(ok)
+            
+            present(alert, animated: true, completion: {
+                self.say(text: text)
+            })
+        }
+        
+        return true
+    }
+}
