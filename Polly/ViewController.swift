@@ -42,9 +42,11 @@ class ViewController: UIViewController {
     }
     
     
-    fileprivate func say(text: String, voice: AWSPollyVoiceId = .joanna, completion: (() -> Void)? = nil) {
+    fileprivate func say(text: String, textType: AWSPollyTextType = .text ,
+                         voice: AWSPollyVoiceId = .joanna, completion: (() -> Void)? = nil) {
         let input = AWSPollySynthesizeSpeechURLBuilderRequest()
         input.text = text
+        input.textType = textType
         input.outputFormat = .mp3
         // US default
         input.voiceId = voice
