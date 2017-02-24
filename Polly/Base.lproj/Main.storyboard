@@ -51,10 +51,17 @@
                             <constraint firstItem="IMk-oD-q7Y" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="n9G-c4-zkj"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Polly" id="4U6-0Q-P71"/>
+                    <navigationItem key="navigationItem" title="Polly" id="4U6-0Q-P71">
+                        <barButtonItem key="leftBarButtonItem" title="reset" id="Ylv-b6-qd1">
+                            <connections>
+                                <action selector="onReset:" destination="BYZ-38-t0r" id="ycN-vu-Krf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="greeterLabel" destination="ZAA-5Y-9yy" id="nxd-cF-8HO"/>
                         <outlet property="nameInput" destination="IMk-oD-q7Y" id="jpY-tn-x6L"/>
+                        <outlet property="restBtn" destination="Ylv-b6-qd1" id="HPc-pm-K27"/>
                     </connections>
                 </viewController>
             </objects>

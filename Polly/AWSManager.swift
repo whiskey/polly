@@ -17,5 +17,7 @@ class AWSManager {
         
         let configuration = AWSServiceConfiguration(region: region, credentialsProvider: credentialsProvider)
         AWSServiceManager.default().defaultServiceConfiguration = configuration
+        
+        AWSLogger.default().logLevel = AWSLogLevel.warn
     }
 }

@@ -19,6 +19,8 @@ class ViewController: UIViewController {
         }
     }
     @IBOutlet weak var nameInput: UITextField!
+    @IBOutlet weak var restBtn: UIBarButtonItem!
+    
     
     private lazy var audioPlayer = AVPlayer()
     
@@ -28,6 +30,17 @@ class ViewController: UIViewController {
         
         say(text: greeterLabel.text!)
     }
+    
+    @IBAction func onReset(_ sender: Any) {
+        nameInput.text = nil
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            if let text = self?.greeterLabel.text {
+                self?.say(text: text)
+            }
+        }
+    }
+    
     
     fileprivate func say(text: String, voice: AWSPollyVoiceId = .joanna, completion: (() -> Void)? = nil) {
         let input = AWSPollySynthesizeSpeechURLBuilderRequest()
