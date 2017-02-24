@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var greeterLabel: UILabel! {
         didSet {
-            greeterLabel.text = NSLocalizedString("Your name please", comment: "")
+            greeterLabel.text = NSLocalizedString("Your name, please", comment: "")
         }
     }
     @IBOutlet weak var nameInput: UITextField!
