@@ -1,0 +1,15 @@
+PODS:
+  - AWSCore (2.5.1)
+  - AWSPolly (2.5.1):
+    - AWSCore (= 2.5.1)
+
+DEPENDENCIES:
+  - AWSPolly
+
+SPEC CHECKSUMS:
+  AWSCore: 71ca929a42c68ca7d645fcfa1e41ea0ff792a275
+  AWSPolly: 3a7bd938d44b3ebfaf079cf8afa524a2748bedcf
+
+PODFILE CHECKSUM: f28d8c4279a3915e032d1b803d26b7eae961a90d
+
+COCOAPODS: 1.2.0
